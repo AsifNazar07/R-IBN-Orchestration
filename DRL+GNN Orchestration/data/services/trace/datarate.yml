@@ -1,0 +1,24 @@
+name: "high datarate"
+
+vnfs:
+  - 1   # nginx (cpu)
+  - 4   # squid (mem)
+
+process:  # time measured in seconds
+  name: poissonian
+  marrival: "./data/rates/trace/2.npy"
+  mduration: 10.0
+
+datarates:  # datarates measured in MB/s
+  distr: truncnorm
+  loc: 398.0            # ~1/4th of max rate of nginx (cpu)
+  scale: 79.6           # ~1/5th of mean datarate
+  a: 159.2              # ~1/10th of max rate
+  b: 1592.0             # max rate of nginx (cpu)
+
+latencies:  
+  distr: truncnorm
+  loc: 2.0
+  scale: 1.0
+  a: 2.0
+  b: "inf"              # use string "inf" for YAML compliance

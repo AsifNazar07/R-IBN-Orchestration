@@ -1,0 +1,26 @@
+name: "high memory; low datarate"
+
+vnfs:
+  - 0   # nginx (mem)
+  - 2   # haproxy (mem)
+  - 5   # squid (mem)
+  - 4   # squid (mem)
+
+process:  # time measured in seconds
+  name: poissonian
+  marrival: "./data/rates/trace/2.npy"
+  mduration: 40.0
+
+datarates:  # datarates measured in MB/s
+  distr: truncnorm
+  loc: 214.0           # ~1/2 of squid bottleneck max rate
+  scale: 42.8          # ~1/5 of mean rate
+  a: 42.8              # ~1/10 of squid max rate
+  b: 427.8             # max expected datarate
+
+latencies:  
+  distr: truncnorm
+  loc: 4.0             # higher base latency tolerance
+  scale: 1.5
+  a: 2.0
+  b: "inf"             # no upper latency cap

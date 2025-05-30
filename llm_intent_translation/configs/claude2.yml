@@ -1,0 +1,8 @@
+model_name: "claude2"  
+train_file: "./data/lumi/train.json"
+val_file: "./data/lumi/val.json"
+num_labels: 2
+max_len: 128
+
+output_dir: "./runs/claude2"
+seed: 42

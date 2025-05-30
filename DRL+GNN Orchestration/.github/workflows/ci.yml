@@ -1,0 +1,71 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    name: Lint Code (flake8)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install flake8
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+
+      - name: Run flake8
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+  conda-build:
+    name: Build and Validate Conda Environment
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: drlgnn
+          environment-file: environment.yml
+          python-version: 3.8
+          auto-activate-base: false
+
+      - name: Validate Environment
+        shell: bash -l {0}
+        run: |
+          conda info
+          conda list
+          echo "Conda environment validated successfully."
+
+  test:
+    name: Run DRL+GNN Tests
+    runs-on: ubuntu-latest
+    needs: conda-build
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: drlgnn
+          environment-file: environment.yml
+          python-version: 3.8
+          auto-activate-base: false
+
+      - name: Run Tests (Optional: Add your test suite)
+        shell: bash -l {0}
+        run: |
+          echo "Add your pytest or evaluation test commands here..."
+          echo "For example: python -m unittest discover tests/"

@@ -1,0 +1,25 @@
+name: DRLGNN
+
+policy:
+  model_type: "GAT"              # Graph Attention Network or GCN
+  num_layers: 3                  # Number of GNN layers
+  hidden_dim: 128                # Hidden dimension per layer
+  aggregation: "mean"           # Aggregation method (mean, sum, max)
+  use_positional_encoding: true
+  dropout_rate: 0.2
+  max_steps: 200                 # For episodic rollout
+  learning_rate: 0.0005
+  gamma: 0.99
+  batch_size: 64
+  buffer_size: 10000
+  target_update_interval: 100
+  update_every: 10
+  reward_shaping: true
+  reward_strategy: "balanced_acceptance"
+
+train:
+  total_episodes: 5000
+  evaluation_interval: 100
+  checkpoint_dir: ./checkpoints/drlgnn/
+  log_dir: ./logs/drlgnn/
+  save_best_model: true

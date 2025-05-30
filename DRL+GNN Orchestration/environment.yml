@@ -1,0 +1,49 @@
+name: drlgnn
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - numpy>=1.24
+  - pandas>=1.5
+  - networkx>=3.0
+  - pyyaml>=6.0
+  - tensorboard>=2.14
+  - pytorch::pytorch>=2.0
+  - pytorch::torchaudio
+  - pytorch::torchvision
+  - scikit-learn
+  - matplotlib
+  - tqdm
+  - seaborn
+  - pip:
+    - stable-baselines3[extra]==2.1.0
+    - munch
+    - protobuf==3.20.*
+    - tensorboardX
+    - matplotlib-inline
+    - ipykernel
+    - gym==0.26.2
+    - gymnasium
+    - rich
+    - pyvis
+    - joblib
+    - dill
+    - tabulate
+    - wandb
+    - pairing-functions
+    - hydra-core
+    - omegaconf
+
+# Notes:
+# - This environment.yml includes GPU-compatible PyTorch from the conda-forge channel. Adjust for CUDA version if necessary.
+# - TensorBoard and tensorboardX are included for training diagnostics and visualization.
+# - Gym is locked to a compatible version due to breaking API changes in gym 1.0+.
+# - Hydra and OmegaConf included for advanced configuration management.
+# - pairing-functions is required for Cantor tuple hashing in agent coordination modules.
+
+# Setup Instructions:
+# 1. conda env create -f environment.yml
+# 2. conda activate drlgnn
+# 3. pip install -e .   # if using setup.py

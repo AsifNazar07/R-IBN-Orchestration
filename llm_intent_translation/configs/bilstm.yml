@@ -1,0 +1,26 @@
+# === Data Paths ===
+train_file: "./data/lumi/train.json"
+val_file: "./data/lumi/val.json"
+
+# === Model & Tokenizer ===
+model_type: "bilstm"
+num_labels: 2
+max_len: 128
+
+# === Model Hyperparameters ===
+embedding_dim: 128
+hidden_dim: 256
+dropout: 0.3
+
+# === Optimization ===
+learning_rate: 2e-5
+batch_size: 16
+eval_batch_size: 32
+epochs: 10
+weight_decay: 0.01
+
+# === Logging & Checkpointing ===
+output_dir: "./runs/bilstm_attention"
+
+# === Misc ===
+seed: 42

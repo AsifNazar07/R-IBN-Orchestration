@@ -1,0 +1,14 @@
+model_name: "t5-small"
+train_file: "./data/lumi/train.json"
+val_file: "./data/lumi/val.json"
+num_labels: 2
+max_len: 128
+
+learning_rate: 2e-4  # T5 needs slightly higher LR
+batch_size: 16
+eval_batch_size: 32
+epochs: 10
+weight_decay: 0.01
+
+output_dir: "./runs/t5"
+seed: 42
